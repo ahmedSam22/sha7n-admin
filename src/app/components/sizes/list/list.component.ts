@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EditComponent } from '../edit/edit.component';
 
 @Component({
   selector: 'app-list',
@@ -12,63 +13,40 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class ListComponent implements OnInit {
 
-  sizes;
+  admins;
   constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private globalService:GlobalService) { }
 
   ngOnInit(): void {
-    this.allProducts()
+    this.allAdmins()
   }
 
-  allProducts(){
+  allAdmins(){
     this.spinner.show()
-    this.globalService.allSizes().pipe(map(res=>res['data'])).subscribe(res=>{
+    this.globalService.allAdmins().pipe(map(res=>res['data'])).subscribe(res=>{
       this.spinner.hide()
-      this.sizes=res
+      this.admins=res
       console.log(res)
     })
   }
-  activeProduct(product_id){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,1).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
-  }
-  refuseProduct(product_id){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,2).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
-  }
-  // productDetails(order){
-  //   let dialogRef = this.dialog.open(ProductDetailsComponent, {
-  //     data:order,
-  //     height: '600px',
-  //     width: '600px',
-  //   });
-  // }
 
-  deleteColor(size_id){
+  editAdmin(admin){
+    let dialogRef = this.dialog.open(EditComponent, {
+      data:admin,
+      height: '600px',
+      width: '600px',
+    });
+  }
+
+  deleteAdmin(admin_id){
     this.spinner.show()
-    this.globalService.deleteSize(size_id).subscribe(res=>{
+    this.globalService.deleteAdmin(admin_id).subscribe(res=>{
       this.spinner.hide()
       Swal.fire(
               'نجاح',
-              'تم حذف الحجم بنجاح',
+              'تم حذف الادمن بنجاح',
               'success'
             )
-            this.allProducts()
+            this.allAdmins()
           })
   }
 }

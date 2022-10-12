@@ -1,82 +1,39 @@
-<h3 class="text-center">بيانات مقدم الخدمة </h3> 
- <br>
-<table class="table" dir="rtl">
-    <tbody>
-      
-      <tr>
-        <th scope="row">اسم مقدم الخدمة </th>
-        <td>{{data?.user?.name}}</td>
-      </tr>
-      <tr>
-        <th scope="row">الإيميل  </th>
-        <td>{{data?.user?.email}}</td>
-      </tr>
-      <tr>
-        <th scope="row">الجوال  </th>
-        <td>{{data?.user?.phone}} </td>
-      </tr>
-      <tr>
-        <th scope="row">الدولة  </th>
-        <td>{{data?.address}} </td>
-      </tr>
-      <tr>
-        <th scope="row">المدينة  </th>
-        <td>{{data?.location?.name}} </td>
-      </tr>
-      <tr>
-        <th scope="row">رقم الحساب البنكي  </th>
-        <td>{{data?.iban}} </td>
-      </tr>
-      <tr>
-        <th scope="row">رقم السجل  </th>
-        <td>{{data?.commercial_number}} </td>
-      </tr>
-      <tr>
-        <th scope="row">صورة السجل</th>
-        <td>
-            <!-- <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{data?.images[0]}}" onerror=" src='assets/images/image-not-found.svg'" alt=""> -->
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">اسم البنك  </th>
-        <td> {{data?.bank_name}} </td>
-      </tr>
-      <tr>
-        <th scope="row">اسم المتجر   </th>
-        <td>{{data?.user?.name}} </td>
-      </tr>
-      <tr>
-        <th scope="row">تكلفة التوصيل    </th>
-        <td>{{data?.delivery_fee}} ريال </td>
-      </tr>
-      <!-- <tr>
-        <th scope="row">الحالة المالية     </th>
-        <td> ؟؟ </td>
-      </tr> -->
-      <!-- <tr>
-        <th scope="row">رقم البطاقة الشخصية  </th>
-        <td>569848956 </td>
-      </tr>
-      <tr>
-        <th scope="row">صورة البطاقة</th>
-        <td>
-            <img style="width: 50px;height: 50px;border-radius: 50%;" src="assets/images/image-not-found.svg" alt="">
-        </td>
-      </tr>
-      
-      <tr>
-        <th scope="row">التخصص  </th>
-        <td>اي تخصص </td>
-      </tr>
-      <tr>
-        <th scope="row">نبذة  </th>
-        <td>تيسابت استا بتا تنسيا  </td>
-      </tr>
-      <tr>
-        <th scope="row">صورة الرتوفوليو  </th>
-        <td>
-            <img style="width: 50px;height: 50px;border-radius: 50%;" src="assets/images/image-not-found.svg" alt="">
-        </td>
-      </tr> -->
-    </tbody>
-  </table>
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="submit()">
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="">الاسم باللغة العربيه</label>
+                                <input type="text" class="form-control" formControlName="name_ar">
+
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="">الاسم باللغة الانجليزية</label>
+                                <input type="text" class="form-control" formControlName="name_en">
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for=""> الوصف باللغة العربيه</label>
+                                <input type="text" class="form-control" formControlName="description_ar">
+
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="">الوصف باللغة الانجليزية </label>
+                                <input type="text" class="form-control" formControlName="description_en">
+
+                            </div>
+                        </div>
+                        <div class="form-group text-center mt-5">
+                            <button class="btn btn-primary" type="submit">تعديل  رأي </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

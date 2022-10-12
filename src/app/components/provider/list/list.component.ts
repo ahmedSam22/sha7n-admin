@@ -14,13 +14,7 @@ import { ProviderDetailsComponent } from '../provider-details/provider-details.c
 })
 export class ListComponent implements OnInit {
 
-  type=0;
-  public selectedRole = this.route.snapshot.paramMap.get('role');
-  public users = [
-    {
-      
-    }
-  ]
+   testmoinals
   constructor( 
     public route: ActivatedRoute,
     private spinner:NgxSpinnerService,
@@ -28,62 +22,44 @@ export class ListComponent implements OnInit {
     private dialog:MatDialog) { }
 
   ngOnInit(): void {
-    this.getUsers(0)
+    this.getTestmonials()
   }
-  getUsers(status_id){
+  getTestmonials(){
     this.spinner.show()
-    this.service.allProviders(status_id).pipe(map(res=>res['data'])).subscribe((response:any)=>{
+    this.service.getTestmonials().pipe(map(res=>res['data'])).subscribe((response:any)=>{
       console.log(response)
-      this.users = response
+      this.testmoinals = response
     this.spinner.hide()
     })
   }
 
-  getOrders(type){
-    this.type=type
-    this.getUsers(type)
-  }
 
 
 
 
-  activeFamily(user_id){
-    this.service.changeUserStatus(user_id,1).subscribe(res=>{
-      Swal.fire(
-        'نجاح',
-        'تم تنشيط مقدم الخدمة بنجاح   ',
-        'success'
-      )
-      this.getOrders(this.type)
-    })
-  }
-        
-  refuseFamily(user_id){
-    // this.service.deleteUser(user_id).subscribe(res=>{
-    //   Swal.fire(
-    //     'نجاح',
-    //     'تم  الحذف بنجاح   ',
-    //     'success'
-    //   )
-    //   this.getOrders(this.type)
-    // })
-  }
-  blockFamily(user_id){
-    this.service.changeUserStatus(user_id,2).subscribe(res=>{
-      Swal.fire(
-        'نجاح',
-        'تم الحظر بنجاح   ',
-        'success'
-      )
-      this.getOrders(this.type)
-    })
-  }
 
-  providerDetails(user){
+  editTest(user){
     let dialogRef = this.dialog.open(ProviderDetailsComponent, {
       data:user,
-      height: '650px',
+      height: '450px',
       width: '600px',
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getTestmonials()
+    });
+  }
+  deleteTest(id){
+    this.spinner.show()
+
+    this.service.DeleteTest(id).subscribe(res=>{
+      this.spinner.hide()
+      Swal.fire(
+        'نجااااح',
+        'تم الحذف  بنجاح',
+        'success'
+        )
+
+    })
+    this.getTestmonials()
   }
 }

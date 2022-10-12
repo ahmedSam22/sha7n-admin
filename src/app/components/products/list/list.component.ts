@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
+import { EditComponent } from '../edit/edit.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list',
@@ -12,52 +14,41 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
-  products;
-  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private service:GlobalService) { }
+  banners;
+  constructor(private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.allProducts()
+    this.companyList()
   }
 
-  allProducts(){
+  companyList(){
     this.spinner.show()
-    this.service.allProducts().pipe(map(res=>res['data']['data'])).subscribe(res=>{
-      this.spinner.hide()
-      this.products=res
-      console.log('products')
-      console.log(res)
+    this.service.getCompanies().pipe(map(res=>res['data'])).subscribe(res=>{
+    this.spinner.hide()
+      this.banners=res
     })
   }
-  activeProduct(product_id){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,1).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
+  deleteApp(banner_id){
+    this.spinner.show()
+    this.service.deleteCompany(banner_id).subscribe(res=>{
+      this.spinner.hide()
+      Swal.fire(
+        'نجاح',
+        'تم حذف الشركه بنجاح',
+        'success'
+        )
+        this.companyList()
+    })
   }
-  refuseProduct(product_id){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,2).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
-  }
-  productDetails(order){
-    let dialogRef = this.dialog.open(ProductDetailsComponent, {
-      data:order,
-      height: '600px',
+  editPackage(category){
+    console.log(category)
+    let dialogRef = this.dialog.open(EditComponent, {
+      data:category,
+      height: '650px',
       width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.companyList()
     });
   }
 }

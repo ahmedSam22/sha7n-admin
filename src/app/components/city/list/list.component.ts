@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 import { GlobalService } from 'src/app/services/global.service';
+import { EditCityComponent } from '../edit-city/edit-city.component';
 
 @Component({
   selector: 'app-list',
@@ -26,45 +27,39 @@ export class ListComponent implements OnInit {
   }
 
   cityList(){
-    // this.spinner.show()
-    // this.service.allCities().pipe(map(res=>res['data'])).subscribe(res=>{
-    //   this.spinner.hide()
-    //   console.log('res')
-    //   console.log(res)
-    //   this.cities=res
-    // })
+    this.spinner.show()
+    this.service.getsaudiHarbour().pipe(map(res=>res['data'])).subscribe(res=>{
+      this.spinner.hide()
+      console.log('res')
+      console.log(res)
+      this.cities=res
+    })
   }
 
 
-  deleteApp(brand_id){
-    // Swal.fire({
-    //   title: 'هل أنت متأكد؟',
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'نعم، قم بالحذف',
-    //   cancelButtonText:'إلغاء'
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //       this.service.deleteCity(brand_id).subscribe(res=>{
-    //       Swal.fire(
-    //         'نجاح',
-    //         'تم حذف المدينة بنجاح',
-    //         'success'
-    //         )
-    //         this.cityList()
-    //       })
-    //     }
-    // })
+  deleteApp(city_id){
+    this.spinner.show()
+    this.service.deletesaudiHarbour(city_id).subscribe(res=>{
+      Swal.fire(
+        'نجاح',
+        'تم حذف الميناء بنجاح',
+        'success'
+        )
+        this.cityList()
+      })
+   
+  }
+
+  editCity(city){
+    let dialogRef = this.dialog.open(EditCityComponent, {
+      data:city,
+      height: '400px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.cityList()
+    });
   }
 
 
-
-  // viewApp(){
-  //   let dialogRef = this.dialog.open(AppInfoComponent, {
-  //     height: '600px',
-  //     width: '600px',
-  //   });
-  // }
 }

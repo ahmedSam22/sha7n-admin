@@ -19,7 +19,7 @@ export class DashboardLayoutComponent implements OnInit {
         this.pageTitle = title
         // change page title in browser
         // document.title = `أدمن ورد - ${title}`
-        document.title = `أدمن ورد - Flower`
+        document.title = `أدمن شركة الشحن - interNational Parcel`
         // titleService.setTitle(title);
       }
     });

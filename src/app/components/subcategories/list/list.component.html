@@ -5,38 +5,42 @@
                 <div class="card-body">
                     <table class="table">
                         <thead class="thead-dark">
-                          <tr>
-                            <th scope="col">#</th>
-                            <!-- <th scope="col">الاسم بالعربية</th> -->
-                            <th scope="col"> القسم الرئيسي</th>
-                            <th scope="col">اسم القسم</th>
-                            <th scope="col">صورة القسم</th>
-                            <th scope="col">إعدادات</th>
-                          </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <!-- <th scope="col">الاسم بالعربية</th> -->
+                                <th scope="col">الاسم باللغة العربيه</th>
+                                <th scope="col">الاسم باللغة الانجليزية</th>
+
+                                <th scope="col">الوصف باللغة العربيه</th>
+                                <th scope="col">الوصف باللغة الانجليزية</th>
+                                <th scope="col">صورة الخدمه </th>
+                                <th scope="col">إعدادات</th>
+                            </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let category of categories;let i=index">
-                            <th scope="row">{{i+1}}</th>
-                            <td>{{category.category.name_ar}} </td>
-                            <td>{{category.name_ar}}</td>
-                            <td> <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{baseUrl}}/{{category.image}}" onerror="this.src='assets/images/image-not-found.svg'"  alt=""></td>
-                            <!-- <td>
-                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp(category.id)">delete</mat-icon>
+                            <tr *ngFor="let service of services;let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{service?.title_ar}} </td>
+                                <td>{{service?.title_en}} </td>
+                                <td>{{service?.description_ar}} </td>
+
+                                <td>{{service?.description_en}}</td>
+                                <td> <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{service.imagePath}}" onerror="this.src='assets/images/image-not-found.svg'" alt=""></td>
+                                <!-- <td>
+                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp(service.id)">delete</mat-icon>
                               '
-                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp(category)">visibility</mat-icon>
+                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp(service)">visibility</mat-icon>
                             </td> -->
 
-                            <td>
-                              <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteApp(category.id)"></i> 
-                              |
-                              <!-- <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="viewApp(category)"></i> | -->
-                              <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editPackage(category)"></i> 
-                            </td>
+                                <td>
+                                    <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteApp(service.id)"></i> |
+                                    <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editPackage(service)"></i>
+                                </td>
 
 
-                          </tr>
+                            </tr>
                         </tbody>
-                      </table>
+                    </table>
                 </div>
             </div>
         </div>

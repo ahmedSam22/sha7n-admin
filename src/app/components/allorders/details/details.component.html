@@ -1,0 +1,91 @@
+<h3 class="text-center">بيانات الطلب </h3>
+<br>
+<table class="table" dir="rtl">
+    <tbody>
+        <tr>
+            <th scope="row"> رقم الطلب</th>
+            <td>
+                {{data?.id}}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">تاريخ الطلب </th>
+            <td>{{data?.created_at |date}} </td>
+        </tr>
+        <tr>
+            <th scope="row"> عنوان التوصيل </th>
+            <td>{{data.address == null ? 'لا يوجد عنوان توصيل ' :data.address}} </td>
+        </tr>
+        <tr>
+            <th scope="row"> تاريخ الوصول </th>
+            <td>{{data?.updated_at | date}}</td>
+        </tr>
+        <tr>
+            <th scope="row">تكلفة الطلب </th>
+            <td>{{data?.calculated_price}}</td>
+
+        </tr>
+
+        <tr>
+            <th scope="row">وزن الطلب </th>
+            <td>{{data?.weight}}</td>
+
+        </tr>
+
+        <tr>
+            <th scope="row"> نوع البضاعة </th>
+            <td>{{data?.shipping_type.name_ar ? data?.shipping_type.name_ar : data?.shipping_type.name_en}}</td>
+
+        </tr>
+        <tr>
+            <th scope="row">  تكلفة الطلب </th>
+            <td>{{data?.calculated_price}}</td>
+
+        </tr>
+        <tr>
+            <th scope="row"> نوع الشحن </th>
+            <td *ngIf="data?.type == 1">جوي</td>
+            <td *ngIf="data?.type == 0">بحري</td>
+
+        </tr>
+
+   
+        <tr>
+            <th scope="row">حاله الطلب </th>
+            <td *ngIf="data?.status_id == 0 ">طلب جديد</td>
+            <td *ngIf="data?.status_id == 1 ">طلب مؤكد</td>
+            <td *ngIf="data?.status_id == 2 "> الاستلام من متجر الصين </td>
+            <td *ngIf="data?.status_id == 3 "> في متجر الصين </td>
+            <td *ngIf="data?.status_id == 4 "> يتم الشحن من الصين </td>
+            <td *ngIf="data?.status_id == 5 "> الاستلام في متجر السعوديه</td>
+            <td *ngIf="data?.status_id == 6 "> الشحن في ميناء السعودية </td>
+            <td *ngIf="data?.status_id == 7 "> الشحن من ميناء السعوديه</td>
+            <td *ngIf="data?.status_id == 8 ">طلب منتهي</td>
+
+
+        </tr>
+        <tr>
+            <th scope="row">الشركة المسئولة عن توصيل الطلب </th>
+            <td>{{data?.company.name}}</td>
+
+        </tr>
+        <tr>
+            <th scope="row">اسم العميل </th>
+            <td>{{data?.user.name}}</td>
+
+        </tr>
+        <tr>
+            <th scope="row">  الصور المرفقة </th>
+            <td>
+<img width="100px" [src]="data?.invoicefile" alt="" srcset="" class="mr-1">
+<img width="100px" [src]="data?.listfile" alt="" srcset="">
+
+            </td>
+
+    
+
+        </tr>
+    </tbody>
+</table>
+
+<!--  -->

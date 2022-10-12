@@ -16,6 +16,7 @@ import { UserDetailsComponent } from '../../user-details/user-details.component'
 export class ListComponent implements OnInit {
   
   type=1;
+  userActive=1;
   public selectedRole = this.route.snapshot.paramMap.get('role');
   public users = [
     {
@@ -35,14 +36,15 @@ export class ListComponent implements OnInit {
     this.spinner.show()
     this.service.allUsers(status_id).pipe(map(res=>res['data'])).subscribe((response:any)=>{
       console.log(response)
-      this.users = response
+      this.users = response.data
     this.spinner.hide()
     })
   }
 
   getOrders(type){
-    this.type=type
     this.getUsers(type)
+    this.type=type
+
   }
 
 
@@ -70,7 +72,8 @@ export class ListComponent implements OnInit {
     // })
   }
   blockFamily(user_id){
-    this.service.changeUserStatus(user_id,2).subscribe(res=>{
+
+    this.service.changeUserStatus(user_id,0).subscribe(res=>{
       Swal.fire(
         'نجاح',
         'تم الحظر بنجاح   ',

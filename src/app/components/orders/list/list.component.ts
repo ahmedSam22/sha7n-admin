@@ -14,55 +14,48 @@ import { UserDetailsComponent } from '../../users/user-details/user-details.comp
 })
 export class ListComponent implements OnInit {
 
-  orders;
-  type=0;
+  clients;
+  active=1;
   constructor(private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.orderList(this.type)
+    this.clientList(this.active)
   }
 
-  orderList(type){
+  clientList(active){
     this.spinner.show()
-    this.service.allOrders(type).pipe(map(res=>res['orders'])).subscribe(res=>{
+    this.service.getClients(active).pipe(map(res=>res['data'].data)).subscribe(res=>{
+      console.log(res)
       this.spinner.hide()
-      this.orders=res
+      this.clients=res
     })
   }
-  deleteApp(){
-    Swal.fire(
-      'نجاح',
-      'تم حذف التطبيق بنجاح',
-      'success'
-      )
-  }
-  orderDetails(order){
-    let dialogRef = this.dialog.open(OrderDetailsComponent, {
-      data:order,
-      height: '650px',
-      width: '600px',
-    });
-  }
+
   getOrders(progress){
-    this.type=progress
-    this.orderList(progress)
+    this.active=progress
+    this.clientList(progress)
   }
+  changeStatus(user_id,status_id){
+    this.spinner.show()
 
-
-
-  providerDetails(user){
-    let dialogRef = this.dialog.open(ProviderDetailsComponent, {
-      data:user,
-      height: '650px',
+    this.service.changeStatus(user_id,status_id).subscribe(res=>{
+      console.log(res)
+      this.spinner.hide()
+      // this.clients=res
+    })
+    this.clientList(this.active)
+  }
+  viewClient(client){
+    let dialogRef = this.dialog.open(OrderDetailsComponent, {
+      data:client,
+      height: '450px',
       width: '600px',
     });
+
   }
 
-  userDetails(user){
-    let dialogRef = this.dialog.open(UserDetailsComponent, {
-      data:user,
-      height: '500px',
-      width: '600px',
-    });
-  }
+
+
+
+
 }

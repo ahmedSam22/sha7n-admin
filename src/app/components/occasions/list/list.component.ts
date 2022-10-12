@@ -1,9 +1,12 @@
-import { GlobalService } from './../../../services/global.service';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EditComponent } from '../edit/edit.component';
+import { environment } from 'src/environments/environment';
+import { EditSubcategoryComponent } from '../../subcategories/edit-subcategory/edit-subcategory.component';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-list',
@@ -12,67 +15,45 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class ListComponent implements OnInit {
 
-  occassions;
-  constructor(
-    private dialog:MatDialog,
-    private spinner:NgxSpinnerService,
-    private globalService:GlobalService
-    ) { }
+  banners;
+  baseUrl=environment.baseURL;
+  constructor(private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.allProducts()
+    this.bannersList()
   }
 
-  allProducts(){
+  bannersList(){
     this.spinner.show()
-    this.globalService.allOccasions().pipe(map(res=>res['data'])).subscribe(res=>{
-      this.spinner.hide()
-      this.occassions=res
+    this.service.getBanners().pipe(map(res=>res['data'])).subscribe(res=>{
+    this.spinner.hide()
+    console.log('res')
       console.log(res)
+      this.banners=res
     })
   }
-  activeProduct(product_id){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,1).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
-  }
-  refuseProduct(product_id){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,2).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
-  }
-  // productDetails(order){
-  //   let dialogRef = this.dialog.open(ProductDetailsComponent, {
-  //     data:order,
-  //     height: '600px',
-  //     width: '600px',
-  //   });
-  // }
-
-  deleteColor(occassion_id){
+  deleteApp(banner_id){
+    console.log(banner_id)
     this.spinner.show()
-    this.globalService.deleteOccasions(occassion_id).subscribe(res=>{
+    this.service.deleteBanners(banner_id).subscribe(res=>{
       this.spinner.hide()
       Swal.fire(
-              'نجاح',
-              'تم حذف المناسبة بنجاح',
-              'success'
-            )
-            this.allProducts()
-          })
+        'نجاح',
+        'تم حذف البانر بنجاح',
+        'success'
+        )
+        this.bannersList()
+    })
+  }
+  editPackage(category){
+    console.log(category)
+    let dialogRef = this.dialog.open(EditComponent, {
+      data:category,
+      height: '650px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.bannersList()
+    });
   }
 }

@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  endpoint:'https://bazaar.zabah.net/public/api',
-  baseURL:'https://pomac.info/zabah-backend/public',
-  currentUserKey:'qadiautkCurrentUser',
+  endpoint:'https://api.ipe2w.com/api',
+  baseURL:'https://api.ipe2w.com/api',
+  currentUserKey:'Sathatadmin',
 };

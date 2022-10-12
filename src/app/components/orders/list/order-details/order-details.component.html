@@ -1,56 +1,35 @@
-<h3 class="text-center">بيانات  الطلب </h3> 
- <br>
+<h3 class="text-center">بيانات العميل </h3>
+<br>
 <table class="table" dir="rtl">
     <tbody>
-    <tr>
-        <th scope="row">تفاصيل الطلب</th>
-        <td>
-          {{data?.note}}
-        </td>
-    </tr>
-    <tr>
-        <th scope="row">سعر الطلب </th>
-        <td>{{data?.total_price}} ريال</td>
-    </tr>
-    <tr>
-      <th scope="row">عنوان العميل </th>
-      <td>{{data?.user?.default_address?.area}}</td>
-    </tr>
-      <tr>
-        <th scope="row">اسم مقدم الخدمة </th>
-        <td>{{data?.store?.user?.name}}</td>
-      </tr>
-      <tr>
-        <th scope="row">اسم العميل </th>
-        <td>{{data?.user?.name}}</td>
-      </tr>
-      <tr>
-        <th scope="row">عنوان التوصيل </th>
-        <td>{{data?.address?.area}}</td>
-      </tr>
-      <tr>
-        <th scope="row">رقم جوال العميل </th>
-        <td>{{data?.user?.phone}}</td>
-      </tr>
-      <tr>
-        <th scope="row">تاريخ طلب الأوردر </th>
-        <td>{{data?.created_at | date: 'dd/MM/yyyy'}} </td>
-      </tr>
-      <tr>
-        <th scope="row">تاريخ استلام الأوردر </th>
-        <td>{{data?.delivery_date}}</td>
-      </tr>
-    </tbody>
-  </table>
+        <tr>
+            <th scope="row"> الاسم</th>
+            <td>
+                {{data?.name}}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">الايميل </th>
+            <td>{{data?.email}} </td>
+        </tr>
+        <tr>
+            <th scope="row"> رقم الهاتف </th>
+            <td>{{data?.phone}}</td>
+        </tr>
+        <tr>
+            <th scope="row"> عدد الطلبات </th>
+            <td>{{data?.orders}}</td>
+        </tr>
+        <!-- <tr>
+            <th scope="row"> عدد الشحنات </th>
+            <td>{{data?.shipped}}</td>
+        </tr> -->
+        <tr>
+            <th scope="row">الحاله </th>
+            <td>{{data?.active == 0 ? 'محظور' :'مفعل'}}</td>
+        </tr>
 
-  <div class="container" *ngIf="data?.order_items?.length != 0">
-    <hr>
-    <p>المنتجات</p>
-    <div class="row">
-      <div class="col-md-3" *ngFor="let order_item of data.order_items" (click)="productDetails(order_item.product)">
-        <a href="javascript:void(0)" rel="noopener noreferrer">
-          <img class="w-100" src="{{order_item.product.imagePath}}" alt="">
-        </a>
-      </div>
-    </div>
-  </div>
+    </tbody>
+</table>
+
+<!--  -->

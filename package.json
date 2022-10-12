@@ -28,6 +28,7 @@
     "libphonenumber-js": "^1.9.4",
     "mapbox-gl": "^2.0.1",
     "ng-connection-service": "^1.0.4",
+    "ng-multiselect-dropdown": "^0.3.8",
     "ngx-color-picker": "^11.0.0",
     "ngx-dropzone": "^3.0.0",
     "ngx-mapbox-gl": "^5.0.0",

@@ -10,7 +10,7 @@ import { ProductDetailsComponent } from 'src/app/components/products/product-det
 export class OrderDetailsComponent implements OnInit {
 
   // baseUrl=environment.baseURL
-  constructor(@Inject(MAT_DIALOG_DATA)public data: {data: string},private dialog:MatDialog) { }
+  constructor(@Inject(MAT_DIALOG_DATA)public data: any,private dialog:MatDialog) { }
 
   ngOnInit(): void {
     console.log('this.data')

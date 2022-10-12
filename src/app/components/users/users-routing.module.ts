@@ -8,8 +8,8 @@ import { StoresComponent } from './stores/stores.component';
 import { UserRelatedOrderComponent } from './user-related-order/user-related-order.component';
 
 const routes: Routes = [
-  {path:'clients',component:ClientsComponent},
-  {path:'stores',component:StoresComponent},
+  {path:'list',component:ClientsComponent,data:{title:'  جميع البروموكود'}},
+  {path:'add',component:StoresComponent ,data:{title:'  اضافة بروموكود'}},
   {path:'delivery',component:DeliveryComponent},
   {path:'list',component:ListComponent},
   {path:'user-orders/:user-id',component:UserRelatedOrderComponent,data:{title:'الطلبات الخاصة بالعميل'}},

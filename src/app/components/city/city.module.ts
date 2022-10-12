@@ -7,10 +7,11 @@ import { AddComponent } from './add/add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatIconModule } from '@angular/material/icon';
+import { EditCityComponent } from './edit-city/edit-city.component';
 
 
 @NgModule({
-  declarations: [ListComponent, AddComponent],
+  declarations: [ListComponent, AddComponent, EditCityComponent],
   imports: [
     CommonModule,
     CityRoutingModule,

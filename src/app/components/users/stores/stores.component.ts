@@ -1,6 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { map } from 'rxjs/operators';
 import { GlobalService } from 'src/app/services/global.service';
@@ -13,68 +15,63 @@ import { UserDetailsComponent } from '../user-details/user-details.component';
   styleUrls: ['./stores.component.scss']
 })
 export class StoresComponent implements OnInit {
-  
-  first_status=0;
-  public selectedRole = this.route.snapshot.paramMap.get('role');
-  public users = [
-    {
-      
-    }
-  ]
-  constructor( 
-    public route: ActivatedRoute,
+  form:FormGroup;
+  categories;
+  submitted=false;
+  newdate=new Date()
+  datePipe
+  date
+  constructor(
+    private formbuilder:FormBuilder,
     private spinner:NgxSpinnerService,
     private service:GlobalService,
-    private dialog:MatDialog
+    private router:Router
     ) { }
 
   ngOnInit(): void {
-    // this.getUsers()
-  }
-  // allUsers(type,status){
-  //   this.first_status=status
-  //   this.spinner.show()
-  //   this.service.allUsers(type,status).pipe(map(res=>res['data'])).subscribe((response:any)=>{
-  //     console.log(response)
-  //     this.users = response
-  //   this.spinner.hide()
-  //   })
-  // }
-  // getUsers(){
-  //   this.spinner.show()
-  //   this.service.allUsers(4,0).pipe(map(res=>res['data'])).subscribe((response:any)=>{
-  //     console.log(response)
-  //     this.users = response
-  //   this.spinner.hide()
-  //   })
-  // }
+    this.form=this.formbuilder.group({
+      code:['',Validators.required],
+      discount_precentage:['',Validators.required],
+      expire_at:['',Validators.required],
 
-  viewUser(user){
-    let dialogRef = this.dialog.open(UserDetailsComponent, {
-      data:user,
-      height: '550px',
-      width: '500px',
-    });
+
+    })
   }
 
-  // accept(user_id){
-  //   this.service.acceptRefuseUser(user_id,1).subscribe(res=>{
-  //     Swal.fire(
-  //       'نجاح',
-  //       'تم القبول بنجاح',
-  //       'success'
-  //     )
-  //     this.getUsers()
-  //   })
-  // }
-  // refuse(user_id){
-  //   this.service.acceptRefuseUser(user_id,2).subscribe(res=>{
-  //     Swal.fire(
-  //       'نجاح',
-  //       'تم الرفض بنجاح',
-  //       'success'
-  //     )
-  //     this.getUsers()
-  //   })
-  // }
+
+
+
+  submit(){
+    this.submitted=true;
+    if(this.form.invalid){ return}
+    this.datePipe= new DatePipe('en-us');
+    this.date = this.datePipe.transform(this.form.value['expire_at'],'Y/MM/dd')
+    let f = {
+      code:this.form.value['code'],
+      discount_precentage:this.form.value['discount_precentage'],
+      expire_at:this.date,
+      
+    }
+    console.log(f)
+    this.spinner.show()
+    this.service.addpromoCode(f).subscribe((res:any)=>{
+      console.log(res)
+      this.spinner.hide()
+      if(res.status == true){
+        Swal.fire(
+          'نجااااح',
+          'تم إضافة  بروموكود  بنجاح',
+          'success'
+          )
+      }
+      else{
+        Swal.fire(
+          'فشل ',
+          'لم يتم اضافة بروموكود',
+          'error'
+          )
+      }
+    })
+  }
+
 }

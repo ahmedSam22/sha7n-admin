@@ -16,6 +16,8 @@ import { ProductsModule } from './components/products/products.module';
 import { ColorsModule } from './components/colors/colors.module';
 import { SizesModule } from './components/sizes/sizes.module';
 import { OccasionsModule } from './components/occasions/occasions.module';
+import { TagsModule } from './components/tags/tags.module';
+import { OrderModule } from './components/allorders/allorder.module';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -34,17 +36,21 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: DashboardLayoutComponent,
     children: [
-      {path:'users',loadChildren:()=>UsersModule},
-      {path:'providers',loadChildren:()=>ProviderModule},
-      {path:'orders',loadChildren:()=>OrdersModule},
-      {path:'country',loadChildren:()=>CountryModule},
-      {path:'city',loadChildren:()=>CityModule},
-      {path:'category',loadChildren:()=>CategoryModule},
-      {path:'sub',loadChildren:()=>SubcategoriesModule},
-      {path:'products',loadChildren:()=>ProductsModule},
+      {path:'promocode',loadChildren:()=>UsersModule},
+      {path:'testmonials',loadChildren:()=>ProviderModule},
+      {path:'clients',loadChildren:()=>OrdersModule},
+      {path:'chinaHarbour',loadChildren:()=>CountryModule},
+      {path:'saudiHarbour',loadChildren:()=>CityModule},
+      {path:'international',loadChildren:()=>CategoryModule},
+      {path:'services',loadChildren:()=>SubcategoriesModule},
+      {path:'company',loadChildren:()=>ProductsModule},
       {path:'colors',loadChildren:()=>ColorsModule},
-      {path:'sizes',loadChildren:()=>SizesModule},
-      {path:'occasions',loadChildren:()=>OccasionsModule},
+      {path:'admins',loadChildren:()=>SizesModule},
+      {path:'banner',loadChildren:()=>OccasionsModule},
+      {path:'transactions',loadChildren:()=>TagsModule},
+      {path:'orders',loadChildren:()=>OrderModule},
+
+
     ]
   },
   {

@@ -11,56 +11,62 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent implements OnInit {
-
   form:FormGroup;
+  categories;
+  submitted=false;
   constructor(
     private formbuilder:FormBuilder,
-    private service:GlobalService,
     private spinner:NgxSpinnerService,
+    private service:GlobalService,
     private router:Router
     ) { }
 
-  ngOnInit(): void {
-    this.form=this.formbuilder.group({
-      name_ar:['',Validators.required],
-      name_en:['',Validators.required],
-    })
-  }
+    ngOnInit(): void {
+      this.form=this.formbuilder.group({
+        name_ar:['',Validators.required],
+        name_en:['',Validators.required],
+       description_en:['',Validators.required],
+       description_ar:['',Validators.required],
+       price:['',Validators.required],
+       insaurance:['',Validators.required],
+
+  
+      })
+    }
 
   files: File[] = [];
 
-onSelect(event) {
-  console.log('event.addedFiles[0]');
-  console.log(event.addedFiles[0]);
-  this.files=[]
-  this.files.push(...event.addedFiles);
-}
 
-onRemove(event) {
-  console.log(event);
-  this.files.splice(this.files.indexOf(event), 1);
-}
+  onSelect(event) {
+    console.log(event.addedFiles[0]);
+    this.files=[]
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
 
   submit(){
     console.log('Form Work')
     this.spinner.show()
-    let form={
+    let x={
       ...this.form.value,
       image:this.files[0]
     }
-    this.service.addCategory(form).subscribe(res=>{
+    console.log(x)
+    this.service.addinterNationalCompany(x).subscribe(res=>{
+      console.log(res)
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم إضافة الفئة بنجاح',
+        'تم الأضافة    بنجاح',
         'success'
       )
-      this.router.navigate(['/app/category/list'])
     })
   }
 
-  // Hi(){
-  //   console.log('dsjbhfsdjhgdjshg')
-  // }
+
 
 }

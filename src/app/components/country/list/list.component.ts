@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 import { GlobalService } from 'src/app/services/global.service';
+import { EditCountryComponent } from '../edit-country/edit-country.component';
 
 @Component({
   selector: 'app-list',
@@ -27,45 +28,41 @@ export class ListComponent implements OnInit {
   }
 
   countryList(){
-    // this.spinner.show()
-    // this.service.allCountries().pipe(map(res=>res['data'])).subscribe(res=>{
-    //   this.spinner.hide()
-    //   console.log('res')
-    //   console.log(res)
-    //   this.countries=res
-    // })
+    this.spinner.show()
+    this.service.getchinaHarbour().pipe(map(res=>res['data'])).subscribe(res=>{
+      this.spinner.hide()
+      console.log('res')
+      console.log(res)
+      this.countries=res
+    })
   }
 
 
-  deleteApp(brand_id){
-    // Swal.fire({
-    //   title: 'هل أنت متأكد؟',
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'نعم، قم بالحذف',
-    //   cancelButtonText:'إلغاء'
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //       this.service.deleteCountry(brand_id).subscribe(res=>{
-    //       Swal.fire(
-    //         'نجاح',
-    //         'تم حذف الدولة بنجاح',
-    //         'success'
-    //         )
-    //         this.countryList()
-    //       })
-    //     }
-    // })
+ 
+  deleteApp(city_id){
+    this.spinner.show()
+    this.service.deletechinaHarbour(city_id).subscribe(res=>{
+      Swal.fire(
+        'نجاح',
+        'تم حذف الميناء بنجاح',
+        'success'
+        )
+        this.countryList()
+      })
+   
+  }
+
+  editCity(city){
+    let dialogRef = this.dialog.open(EditCountryComponent, {
+      data:city,
+      height: '450px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.countryList()
+    });
   }
 
 
 
-  // viewApp(){
-  //   let dialogRef = this.dialog.open(AppInfoComponent, {
-  //     height: '600px',
-  //     width: '600px',
-  //   });
-  // }
 }

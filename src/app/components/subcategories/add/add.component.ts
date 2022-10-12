@@ -15,33 +15,27 @@ export class AddComponent implements OnInit {
 
   form:FormGroup;
   categories;
+  submitted=false;
   constructor(
     private formbuilder:FormBuilder,
-    private service:GlobalService,
     private spinner:NgxSpinnerService,
+    private service:GlobalService,
     private router:Router
     ) { }
 
-  ngOnInit(): void {
-    this.form=this.formbuilder.group({
-      name_ar:['',Validators.required],
-      name_en:['',Validators.required],
-      category_id:['',Validators.required],
-    })
-    this.categoryList()
-  }
+    ngOnInit(): void {
+      this.form=this.formbuilder.group({
+        title_ar:['',Validators.required],
+        title_en:['',Validators.required],
+       description_en:['',Validators.required],
+       description_ar:['',Validators.required],
+  
+      })
+    }
 
   files: File[] = [];
 
-  categoryList(){
-    this.spinner.show()
-    this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
-    this.spinner.hide()
-    console.log('res')
-      console.log(res)
-      this.categories=res
-    })
-  }
+
   onSelect(event) {
     console.log(event.addedFiles[0]);
     this.files=[]
@@ -56,23 +50,24 @@ export class AddComponent implements OnInit {
   submit(){
     console.log('Form Work')
     this.spinner.show()
-    let form={
+    let x={
       ...this.form.value,
       image:this.files[0]
     }
-    this.service.addSubCategory(form).subscribe(res=>{
+    console.log(x)
+    this.service.addService(x).subscribe(res=>{
+      console.log(res)
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم إضافة الفئة بنجاح',
+        'تم إضافة الخدمه بنجاح',
         'success'
-      )
-      this.router.navigate(['/app/sub/list'])
+      ).then(()=>{
+        this.router.navigate(['/app/services/list'])
+    
+            })
     })
   }
 
-  Hi(){
-    console.log('dsjbhfsdjhgdjshg')
-  }
 
 }

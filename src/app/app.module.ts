@@ -15,6 +15,8 @@ import { HomeComponent } from './components/home/home.component';
 import { WrongRouteComponent } from './components/auth/errors/wrong-route/wrong-route.component';
 import {ConnectionServiceModule} from 'ng-connection-service';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -32,10 +34,13 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     NgxSpinnerModule,
     ConnectionServiceModule,
     MatSnackBarModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

@@ -13,51 +13,67 @@ import { Router } from '@angular/router';
 export class AddComponent implements OnInit {
 
   form:FormGroup;
-  color='#c7d494';
+  categories;
+  submitted=false;
   constructor(
     private formbuilder:FormBuilder,
-    private service:GlobalService,
     private spinner:NgxSpinnerService,
+    private service:GlobalService,
     private router:Router
     ) { }
 
-  ngOnInit(): void {
-    this.form=this.formbuilder.group({
-      name_ar:['',Validators.required],
-      name_en:['',Validators.required],
-    })
-  }
+    ngOnInit(): void {
+      this.form=this.formbuilder.group({
+        title_ar:['',Validators.required],
+        title_en:['',Validators.required],
+       description_en:['',Validators.required],
+       description_ar:['',Validators.required],
+  
+      })
+    }
 
   files: File[] = [];
 
-onSelect(event) {
-  console.log(event.addedFiles[0]);
-  this.files=[]
-  this.files.push(...event.addedFiles);
-}
 
-onRemove(event) {
-  console.log(event);
-  this.files.splice(this.files.indexOf(event), 1);
-}
+  onSelect(event) {
+    console.log(event.addedFiles[0]);
+    this.files=[]
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
 
   submit(){
     console.log('Form Work')
     this.spinner.show()
-    let form={
+    let x={
       ...this.form.value,
       image:this.files[0]
     }
-    this.service.addOccasions(form).subscribe(res=>{
+    console.log(x)
+    this.service.addBanners(x).subscribe((res:any)=>{
+      console.log(res)
     this.spinner.hide()
-    Swal.fire(
-        'نجاح',
-        'تم إضافة المناسبة بنجاح',
-        'success'
-      )
-      this.router.navigate(['/app/occasions/list'])
+      if(res.status == true){
+        Swal.fire(
+          'نجاح',
+          'تم إضافة بانر بنجاح',
+          'success'
+        ).then(()=>{
+    this.router.navigate(['/app/banner/list'])
+
+        })
+
+      }
     })
+    // this.router.navigate(['/app/banner//list'])
+    // window.location.reload()
+    
   }
+
 
 
 }

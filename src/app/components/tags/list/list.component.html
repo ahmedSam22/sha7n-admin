@@ -1,1 +1,31 @@
-<p>list works!</p>
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 position-relative">
+                <table class="table table-striped mt-5">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"> رقم </th>
+                            <th scope="col"> اسم المستخدم </th>
+                            <th scope="col"> رقم الهاتف </th>
+
+
+                            <th scope="col"> المبلغ المدفوع </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let shippmento of shippment ;let i=index">
+                            <th scope="col"> {{i+1}} </th>
+                            <td>{{shippmento.user.name}}</td>
+                            <td> {{shippmento.user.phone}}</td>
+                            <td> {{shippmento.payed}}</td>
+
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -5,30 +5,36 @@
                 <div class="card-body">
                     <table class="table">
                         <thead class="thead-dark">
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">اسم الدولة</th>
-                            <th scope="col">اسم المدينة</th>
-                            <th scope="col">إعدادات</th>
-                          </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">اسم الميناء باللغه العربيه</th>
+                                <th scope="col">اسم الميناء باللغه الانجليزية</th>
+
+                                <th scope="col">إعدادات</th>
+                            </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let city of cities;let i=index">
-                            <th scope="row">{{i+1}}</th>
-                            <td>
-                                {{city.country.name}}
-                            </td>
-                            <td>
-                                {{city.name}}
-                            </td>
-                            <td>
-                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp(city.id)">delete</mat-icon>
-                              <!-- '
+                            <tr *ngFor="let city of cities;let i=index">
+                                <th scope="row">{{i+1}}</th>
+
+                                <td>
+                                    {{city.name_ar}}
+                                </td>
+
+                                <td>
+                                    {{city.name_en}}
+                                </td>
+                                <td>
+                                    <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteApp(city.id)"></i> |
+                                    <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editCity(city)"></i>
+
+
+                                    <!-- '
                               <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp()">visibility</mat-icon> -->
-                            </td>
-                          </tr>
+                                </td>
+                            </tr>
                         </tbody>
-                      </table>
+                    </table>
                 </div>
             </div>
         </div>

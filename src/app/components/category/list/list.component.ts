@@ -15,43 +15,58 @@ import { EditCategoryComponent } from '../edit-category/edit-category.component'
 })
 export class ListComponent implements OnInit {
 
-  categories;
+
+  banners;
   baseUrl=environment.baseURL;
   constructor(private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.categoryList()
+    this.bannersList()
   }
 
-  categoryList(){
+  bannersList(){
     this.spinner.show()
-    this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
+    this.service.getinterNationalCompanies().pipe(map(res=>res['data'])).subscribe(res=>{
     this.spinner.hide()
     console.log('res')
       console.log(res)
-      this.categories=res
+      this.banners=res
     })
   }
-  deleteApp(category_id){
+  deleteApp(banner_id){
+    console.log(banner_id)
     this.spinner.show()
-    this.service.deleteCategory(category_id).subscribe(res=>{
+    this.service.deleteinterNationalCompany(banner_id).subscribe(res=>{
       this.spinner.hide()
       Swal.fire(
         'نجاح',
-        'تم حذف القسم بنجاح',
+        'تم حذف الشركة بنجاح',
         'success'
         )
-        this.categoryList()
+        this.bannersList()
     })
   }
   editPackage(category){
+    console.log(category)
     let dialogRef = this.dialog.open(EditCategoryComponent, {
       data:category,
       height: '650px',
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.categoryList()
+      this.bannersList()
+    });
+  }
+  viewPack(category){
+    console.log(category)
+    let dialogRef = this.dialog.open(CategoryDetailsComponent, {
+      data:category,
+      height: '650px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.bannersList()
     });
   }
 }
+

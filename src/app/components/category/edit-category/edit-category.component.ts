@@ -12,7 +12,6 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./edit-category.component.scss']
 })
 export class EditCategoryComponent implements OnInit {
-
   form:FormGroup;
   image_edit=false;
   constructor(
@@ -24,49 +23,51 @@ export class EditCategoryComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    console.log(this.data)
     this.form=this.formbuilder.group({
       name_ar:[this.data.name_ar,Validators.required],
       name_en:[this.data.name_en,Validators.required],
+      description_ar:[this.data.description_ar,Validators.required],
+      description_en:[this.data.description_en,Validators.required],
+      price:[this.data.price,Validators.required],
+      insaurance:[this.data.insaurance,Validators.required],
+
+
     })
-    console.log('this.data')
-    console.log(this.data)
+
   }
 
   files: File[] = [];
 
 onSelect(event) {
-  console.log(event.addedFiles[0]);
   this.files=[]
   this.files.push(...event.addedFiles);
 }
 
 onRemove(event) {
-  console.log(event);
   this.files.splice(this.files.indexOf(event), 1);
 }
 
   submit(){
-    console.log('Form Work')
     this.spinner.show()
     let form={
       ...this.form.value,
       image:this.files[0],
-      category_id:this.data.id
+      company_id:this.data.id
     }
-    this.service.editCategory(form).subscribe(res=>{
+    console.log('submitting the form', form)
+    this.service.editinterNationalCompany(form).subscribe(res=>{
+      console.log(res)
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم تعديل الفئة بنجاح',
+        'تم تعديل الشركة بنجاح',
         'success'
       )
-      this.router.navigate(['/app/category/list'])
       this.dialog.closeAll()
     })
   }
 
-  // Hi(){
-  //   console.log('dsjbhfsdjhgdjshg')
-  // }
+
 
 }

@@ -24,7 +24,7 @@ export class AuthenticationService {
     formData.append("email", form.phone);
     formData.append("password", form.password);
     // new Response(formData).text().then(console.log)
-    return this.http.post(`${environment.endpoint}/login`, formData)
+    return this.http.post(`${environment.endpoint}/backend/login`, formData)
     .pipe( map((user:any) => {
       console.log('userrrrrrrr')
       console.log(user)

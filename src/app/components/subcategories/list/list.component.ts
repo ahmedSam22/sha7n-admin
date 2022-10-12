@@ -14,43 +14,45 @@ import { EditSubcategoryComponent } from '../edit-subcategory/edit-subcategory.c
 })
 export class ListComponent implements OnInit {
 
-  categories;
+  services;
   baseUrl=environment.baseURL;
   constructor(private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.categoryList()
+    this.serviceList()
   }
 
-  categoryList(){
+  serviceList(){
     this.spinner.show()
-    this.service.allSubCategories().pipe(map(res=>res['subcategories'])).subscribe(res=>{
+    this.service.getServices().pipe(map(res=>res['data'])).subscribe(res=>{
     this.spinner.hide()
     console.log('res')
       console.log(res)
-      this.categories=res
+      this.services=res
     })
   }
-  deleteApp(category_id){
+  deleteApp(service_id){
+    console.log(service_id)
     this.spinner.show()
-    this.service.deleteSubCategory(category_id).subscribe(res=>{
+    this.service.deleteService(service_id).subscribe(res=>{
       this.spinner.hide()
       Swal.fire(
         'نجاح',
-        'تم حذف الفئة بنجاح',
+        'تم حذف الخدمه بنجاح',
         'success'
         )
-        this.categoryList()
+        this.serviceList()
     })
   }
   editPackage(category){
+    console.log(category)
     let dialogRef = this.dialog.open(EditSubcategoryComponent, {
       data:category,
       height: '650px',
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.categoryList()
+      this.serviceList()
     });
   }
 }
