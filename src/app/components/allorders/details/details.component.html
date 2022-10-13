@@ -20,12 +20,7 @@
             <th scope="row"> تاريخ الوصول </th>
             <td>{{data?.updated_at | date}}</td>
         </tr>
-        <tr>
-            <th scope="row">تكلفة الطلب </th>
-            <td>{{data?.calculated_price}}</td>
-
-        </tr>
-
+     
         <tr>
             <th scope="row">وزن الطلب </th>
             <td>{{data?.weight}}</td>
@@ -34,7 +29,7 @@
 
         <tr>
             <th scope="row"> نوع البضاعة </th>
-            <td>{{data?.shipping_type.name_ar ? data?.shipping_type.name_ar : data?.shipping_type.name_en}}</td>
+            <td>{{data?.shipping_type.name_ar ? data?.shipping_type?.name_ar : data?.shipping_type.name_en}}</td>
 
         </tr>
         <tr>
